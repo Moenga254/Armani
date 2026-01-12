@@ -1,0 +1,49 @@
+
+:root {
+  --bg-color: white;
+  --text-color: black;
+}
+
+.dark-theme {
+  --bg-color: #121212;
+  --text-color: white;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+  font-family: Arial, sans-serif;
+}
+
+/* Toggle switch container */
+.toggle {
+  position: relative;
+  width: 60px;
+  height: 30px;
+  background-color: #ccc;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* The circle inside */
+.toggle-circle {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  border-radius: 50%;
+  transition: left 0.3s;
+}
+
+/* When dark mode is active */
+.dark-theme .toggle {
+  background-color: #141414;}
+
+
+.dark-theme .toggle-circle {
+  left: 33px; /* Move to the right */
+}

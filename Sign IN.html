@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Armani Car Dealers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        body.light-theme {
+            background: #f5f5f5;
+            color: #1a1a1a;
+        }
+
+        /* Particles Background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(218, 165, 32, 0.1);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-50px) translateX(30px); }
+            50% { transform: translateY(-100px) translateX(-30px); }
+            75% { transform: translateY(-50px) translateX(30px); }
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 2000;
+            background: linear-gradient(135deg, #DAA520 0%, #FFD700 100%);
+            border: none;
+            padding: 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 20px rgba(218, 165, 32, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(20deg);
+            box-shadow: 0 8px 30px rgba(218, 165, 32, 0.5);
+        }
+
+        /* Hero Section with Logo */
+        .hero-section {
+            position: relative;
+            height: 40vh;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-bottom: 3px solid #DAA520;
+        }
+
+        body.light-theme .hero-section {
+            background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+        }
+
+        .logo-container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            animation: fadeInScale 1.2s ease;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .logo-text {
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: 8px;
+            background: linear-gradient(135deg, #DAA520 0%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(218, 165, 32, 0.3);
+        }
+
+        .logo-tagline {
+            font-size: 0.9rem;
+            color: #DAA520;
+            letter-spacing: 2px;
+            font-weight: 300;
+            margin-top: 0.5rem;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(218, 165, 32, 0.2);
+        }
+
+        body.light-theme nav {
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid rgba(218, 165, 32, 0.3);
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        body.light-theme nav a {
+            color: #1a1a1a;
+        }
+
+        nav a:hover {
+            color: #DAA520;
+            background: rgba(218, 165, 32, 0.1);
+        }
+
+        /* Main Content */
+        .signin-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 5%;
+            position: relative;
+            z-index: 1;
+            min-height: 60vh;
+        }
+
+        .signin-container {
+            width: 100%;
+            max-width: 450px;
+            padding: 3rem 2.5rem;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 2px solid rgba(218, 165, 32, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            animation: fadeInUp 1s ease;
+        }
+
+        body.light-theme .signin-container {
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .signin-container h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #DAA520 0%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-group svg {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            fill: #DAA520;
+        }
+
+        .input-group input,
+        .input-group textarea {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border-radius: 12px;
+            border: 2px solid rgba(218, 165, 32, 0.3);
+            outline: none;
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        body.light-theme .input-group input,
+        body.light-theme .input-group textarea {
+            background: rgba(255, 255, 255, 0.9);
+            color: #1a1a1a;
+        }
+
+        .input-group input::placeholder,
+        .input-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        body.light-theme .input-group input::placeholder,
+        body.light-theme .input-group textarea::placeholder {
+            color: rgba(26, 26, 26, 0.5);
+        }
+
+        .input-group input:focus,
+        .input-group textarea:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #DAA520;
+        }
+
+        body.light-theme .input-group input:focus,
+        body.light-theme .input-group textarea:focus {
+            background: rgba(255, 255, 255, 1);
+            border-color: #DAA520;
+        }
+
+        .input-group textarea {
+            resize: vertical;
+            min-height: 100px;
+            padding: 1rem;
+        }
+
+        .toggle-eye {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            fill: #DAA520;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-eye:hover {
+            fill: #FFD700;
+        }
+
+        button[type="submit"] {
+            margin-top: 1rem;
+            padding: 1.1rem;
+            border-radius: 12px;
+            border: none;
+            outline: none;
+            background: linear-gradient(135deg, #DAA520 0%, #FFD700 100%);
+            color: #000;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(218, 165, 32, 0.3);
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(218, 165, 32, 0.5);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0 1rem;
+        }
+
+        .social-icons a {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(218, 165, 32, 0.15);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(218, 165, 32, 0.3);
+        }
+
+        .social-icons a:hover {
+            background: rgba(218, 165, 32, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(218, 165, 32, 0.3);
+        }
+
+        .social-icons svg {
+            width: 22px;
+            height: 22px;
+            fill: #DAA520;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        body.light-theme .footer {
+            color: rgba(26, 26, 26, 0.7);
+        }
+
+        .footer a {
+            color: #DAA520;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #FFD700;
+        }
+
+        .footer p {
+            margin: 0.5rem 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .logo-text {
+                font-size: 2.5rem;
+            }
+
+            .hero-section {
+                height: 30vh;
+            }
+
+            nav {
+                gap: 1.5rem;
+                padding: 1rem 3%;
+            }
+
+            nav a {
+                font-size: 0.9rem;
+                padding: 0.6rem 1rem;
+            }
+
+            .signin-container {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logo-text {
+                font-size: 2rem;
+            }
+
+            .signin-container h2 {
+                font-size: 1.8rem;
+            }
+
+            nav a {
+                font-size: 0.85rem;
+            }
+
+            .social-icons {
+                gap: 1rem;
+            }
+
+            .social-icons a {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particles Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
+        🌓
+    </button>
+
+    <!-- Hero Section with Logo -->
+    <div class="hero-section">
+        <div class="logo-container">
+            <div class="logo-text">ARMANI</div>
+            <div class="logo-tagline">LUXURY CAR DEALERS</div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html">HOME</a>
+        <a href="Luxury cars.html">LUXURY SUV's</a>
+        <a href="Sport cars.html">SPORT CARS</a>
+        <a href="Classic cars.html">CLASSY CARS</a>
+        <a href="ELECTRIC CARS.html">ELECTRIC CARS</a>
+        <a href="Sign IN.html">SIGN IN</a>
+    </nav>
+
+    <!-- Sign In Form -->
+    <div class="signin-wrapper">
+        <div class="signin-container">
+            <h2>Sign In</h2>
+            <form>
+                <!-- Email -->
+                <div class="input-group">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 13.065L0 6V4l12 7 12-7v2z"/>
+                    </svg>
+                    <input type="email" placeholder="Email" required>
+                </div>
+
+                <!-- Password -->
+                <div class="input-group">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6-6h-1V9a5 5 0 0 0-10 0v2H6v10h12V11zM9 9a3 3 0 0 1 6 0v2H9V9z"/>
+                    </svg>
+                    <input type="password" id="password" placeholder="Password" required>
+                    <svg class="toggle-eye" id="togglePassword" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 5c-7.633 0-12 7-12 7s4.367 7 12 7 12-7 12-7-4.367-7-12-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
+                    </svg>
+                </div>
+
+                <!-- Comments -->
+                <div class="input-group">
+                    <textarea placeholder="Additional comments (optional)"></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit">Sign In</button>
+            </form>
+
+            <!-- Social Icons -->
+            <div class="social-icons">
+                <a href="https://www.instagram.com/arm_ani" target="_blank" title="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h10zm-5 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm4.5-3a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
+                    </svg>
+                </a>
+                <a href="https://www.facebook.com/armani" target="_blank" title="Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M22 12c0-5.522-4.478-10-10-10S2 6.478 2 12c0 5.002 3.657 9.128 8.438 9.877v-6.987h-2.54V12h2.54V9.797c0-2.507 1.493-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.772-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.987C18.343 21.128 22 17.002 22 12z"/>
+                    </svg>
+                </a>
+                <a href="https://x.com" target="_blank" title="X (Twitter)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M22 4.01c-.77.35-1.6.58-2.47.69a4.3 4.3 0 0 0 1.88-2.37 8.49 8.49 0 0 1-2.7 1.03 4.27 4.27 0 0 0-7.4 3.89 12.1 12.1 0 0 1-8.8-4.47 4.26 4.26 0 0 0 1.32 5.7A4.24 4.24 0 0 1 2.8 8.1v.05a4.28 4.28 0 0 0 3.42 4.19 4.23 4.23 0 0 1-1.93.07 4.28 4.28 0 0 0 3.99 2.96A8.56 8.56 0 0 1 2 18.58a12.07 12.07 0 0 0 6.56 1.92c7.88 0 12.2-6.53 12.2-12.2 0-.19 0-.39-.01-.58A8.72 8.72 0 0 0 22 4.01z"/>
+                    </svg>
+                </a>
+                <a href="https://wa.me/254719238574" target="_blank" title="WhatsApp">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M20.52 3.48a11.89 11.89 0 0 0-16.9 0c-4.66 4.67-4.66 12.23 0 16.9a11.89 11.89 0 0 0 16.9 0c4.66-4.67 4.66-12.23 0-16.9zM12 21.4c-2.5 0-4.84-.97-6.6-2.73a9.33 9.33 0 0 1-2.75-6.64c0-2.5.97-4.84 2.75-6.64a9.33 9.33 0 0 1 13.23 0 9.33 9.33 0 0 1 0 13.28A9.34 9.34 0 0 1 12 21.4zm4.06-6.76c-.22-.1-1.3-.64-1.5-.72-.2-.08-.35-.11-.5.1-.15.22-.57.72-.7.87-.13.15-.25.17-.47.07-.22-.1-.92-.34-1.75-1.08-.65-.58-1.08-1.3-1.2-1.52-.13-.22-.01-.34.09-.44.1-.1.22-.25.32-.37.1-.12.13-.2.2-.34.07-.15.04-.28-.02-.39-.07-.1-.5-1.2-.68-1.65-.18-.44-.36-.38-.5-.39-.13 0-.28-.01-.43-.01-.15 0-.39.06-.59.28-.2.22-.77.75-.77 1.83 0 1.08.79 2.13.9 2.28.11.15 1.56 2.37 3.77 3.33 2.21.96 2.21.64 2.61.6.4-.04 1.3-.53 1.48-1.05.18-.52.18-.97.13-1.07-.05-.1-.2-.15-.42-.25z"/>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <p><a href="#">Forgot Password?</a></p>
+                <p>Don't have an account? <a href="#">Sign Up</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create animated background particles
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 40;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            const size = Math.random() * 5 + 2;
+            const posX = Math.random() * 100;
+            const posY = Math.random() * 100;
+            const delay = Math.random() * 15;
+            
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${posX}%`;
+            particle.style.top = `${posY}%`;
+            particle.style.animationDelay = `${delay}s`;
+            
+            particlesContainer.appendChild(particle);
+        }
+
+        // Theme Toggle Function
+        function toggleTheme() {
+            document.body.classList.toggle('light-theme');
+            
+            // Save theme preference
+            const isLight = document.body.classList.contains('light-theme');
+            localStorage.setItem('armani-theme', isLight ? 'light' : 'dark');
+        }
+
+        // Load saved theme
+        window.addEventListener('load', () => {
+            const savedTheme = localStorage.getItem('armani-theme');
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-theme');
+            }
+        });
+
+        // Toggle password visibility
+        const togglePassword = document.getElementById("togglePassword");
+        const password = document.getElementById("password");
+
+        togglePassword.addEventListener("click", () => {
+            const type = password.getAttribute("type") === "password" ? "text" : "password";
+            password.setAttribute("type", type);
+        });
+
+        // Form submission
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Sign in functionality would be implemented here!');
+        });
+    </script>
+</body>
+</html>

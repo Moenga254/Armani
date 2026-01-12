@@ -1,0 +1,107 @@
+/* Flex container for navigation */
+.container {
+  display: flex;
+  height: 80px;
+  background: black;
+  overflow: hidden;
+}
+
+/* Nav items */
+.container div {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  transition: flex-grow 0.5s ease, background 0.3s;
+  cursor: pointer;
+}
+
+/* Assign background colors by position */
+.container div:nth-child(1) { background: red; }
+.container div:nth-child(2) { background: blue; }
+.container div:nth-child(3) { background: green; }
+.container div:nth-child(4) { background: purple; }
+.container div:nth-child(5) { background: orange; }
+.container div:nth-child(6) { background: gray; }
+
+/* Hover effect */
+.container div:hover {
+  flex-grow: 2;
+  filter: brightness(1.2);
+}
+
+/* Dark theme variables */
+:root {
+  --bg-color: white;
+  --text-color: black;
+}
+
+.dark-theme {
+  --bg-color: #121212;
+  --text-color: white;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+  font-family: Arial, sans-serif;
+}
+
+/* Toggle button */
+.toggle {
+  position: relative;
+  width: 60px;
+  height: 30px;
+  background-color: #ccc;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.toggle-circle {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  border-radius: 50%;
+  transition: left 0.3s;
+}
+
+.dark-theme .toggle {
+  background-color: #141414;
+}
+
+.dark-theme .toggle-circle {
+  left: 33px;
+}
+
+/* Paragraph style */
+p {
+  font-size: 20px;
+  color: var(--text-color);
+}
+
+/* Button style */
+input[type=button] {
+  background-color: darkblue;
+  font-weight: bold;
+  color: white;
+  height: 40px;
+  width: 120px;
+  border: none;
+  border-radius: 5px;
+  margin: 10px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+input[type=button]:hover {
+  transform: scale(1.05);
+  background-color: navy;
+}

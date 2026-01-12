@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Page</title>
+</head>
+<body>
+<script type="text/javascript">
+function showprompt() {
+  let age = prompt("ENTER YOUR REAL AGE");
+
+  if (age >= 18) {
+    alert("Welcome to the website rated 18+");
+  } else {
+    alert("Sorry, minors not allowed past here");
+  }
+}
+</script>
+
+<form>
+  <input type="button" value="Answer Question" onclick="showprompt()"/>
+</form>
+</body>
+</html>

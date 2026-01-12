@@ -1,0 +1,52 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Logo */
+.logo {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Flex container for nav */
+.container {
+  display: flex;
+  height: 80px;
+  overflow: hidden;
+}
+
+/* Nav items */
+.container a {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  transition: flex-grow 0.5s ease, filter 0.3s ease;
+}
+
+/* Assign each button a unique color */
+.container a:nth-child(1) { background: #d22512; } /* red */
+.container a:nth-child(2) { background: #0273be; } /* blue */
+.container a:nth-child(3) { background: #06a046; } /* green */
+.container a:nth-child(4) { background: #661685; } /* purple */
+.container a:nth-child(5) { background: #d68809; } /* orange */
+.container a:nth-child(6) { background: #07a7f1b5; } /* dark gray */
+
+/* Hover effect: expand */
+.container a:hover {
+  flex-grow: 3;
+  filter: brightness(1.2);
+}
+
+body{background-color:black;
+p{font-size:25px; color:white;}
+}

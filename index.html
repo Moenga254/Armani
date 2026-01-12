@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Armani Car Dealers - Luxury & Performance</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      overflow-x: hidden;
+      transition: background 0.3s ease;
+    }
+
+    body.light-theme {
+      background: #f5f5f5;
+      color: #1a1a1a;
+    }
+
+    /* Particles Background */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      background: rgba(218, 165, 32, 0.1);
+      border-radius: 50%;
+      animation: float 15s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      25% { transform: translateY(-50px) translateX(30px); }
+      50% { transform: translateY(-100px) translateX(-30px); }
+      75% { transform: translateY(-50px) translateX(30px); }
+    }
+
+    /* Hero Section with Logo */
+    .hero-section {
+      position: relative;
+      height: 60vh;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-bottom: 3px solid #DAA520;
+    }
+
+    body.light-theme .hero-section {
+      background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><path d="M0,300 Q300,100 600,300 T1200,300 L1200,600 L0,600 Z" fill="rgba(218,165,32,0.05)"/></svg>') no-repeat center;
+      background-size: cover;
+      opacity: 0.3;
+    }
+
+    .logo-container {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      animation: fadeInScale 1.2s ease;
+    }
+
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .logo-text {
+      font-size: 5rem;
+      font-weight: 900;
+      letter-spacing: 8px;
+      background: linear-gradient(135deg, #DAA520 0%, #FFD700 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 30px rgba(218, 165, 32, 0.3);
+      margin-bottom: 1rem;
+    }
+
+    .logo-tagline {
+      font-size: 1.2rem;
+      color: #DAA520;
+      letter-spacing: 3px;
+      font-weight: 300;
+    }
+
+    /* Navigation */
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(26, 26, 26, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1.5rem 5%;
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(218, 165, 32, 0.2);
+      animation: slideDown 0.8s ease;
+    }
+
+    body.light-theme nav {
+      background: rgba(255, 255, 255, 0.95);
+      border-bottom: 1px solid rgba(218, 165, 32, 0.3);
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    body.light-theme nav a {
+      color: #1a1a1a;
+    }
+
+    nav a::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #DAA520, #FFD700);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #DAA520;
+      background: rgba(218, 165, 32, 0.1);
+    }
+
+    nav a:hover::before {
+      width: 80%;
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 2000;
+      background: linear-gradient(135deg, #DAA520 0%, #FFD700 100%);
+      border: none;
+      padding: 1rem;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.5rem;
+      box-shadow: 0 5px 20px rgba(218, 165, 32, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1) rotate(20deg);
+      box-shadow: 0 8px 30px rgba(218, 165, 32, 0.5);
+    }
+
+    /* Main Content */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 4rem 5%;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* About Section */
+    .about-section {
+      text-align: center;
+      margin-bottom: 4rem;
+      animation: fadeInUp 1s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .about-section h2 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #DAA520 0%, #FFD700 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .about-section p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 900px;
+      margin: 0 auto 2rem;
+    }
+
+    body.light-theme .about-section p {
+      color: rgba(26, 26, 26, 0.8);
+    }
+
+    /* Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(218, 165, 32, 0.2);
+      border-radius: 20px;
+      padding: 2.5rem;
+      text-align: center;
+      transition: all 0.4s ease;
+      animation: fadeInUp 1s ease;
+      animation-fill-mode: both;
+    }
+
+    body.light-theme .feature-card {
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(218, 165, 32, 0.3);
+    }
+
+    .feature-card:nth-child(1) { animation-delay: 0.2s; }
+    .feature-card:nth-child(2) { animation-delay: 0.4s; }
+    .feature-card:nth-child(3) { animation-delay: 0.6s; }
+    .feature-card:nth-child(4) { animation-delay: 0.8s; }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 60px rgba(218, 165, 32, 0.3);
+      border-color: #DAA520;
+    }
+
+    .feature-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #DAA520;
+    }
+
+    .feature-card p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    body.light-theme .feature-card p {
+      color: rgba(26, 26, 26, 0.7);
+    }
+
+    /* Locations Section */
+    .locations-section {
+      background: rgba(218, 165, 32, 0.05);
+      border-radius: 20px;
+      padding: 3rem;
+      margin-bottom: 4rem;
+      border: 1px solid rgba(218, 165, 32, 0.2);
+    }
+
+    body.light-theme .locations-section {
+      background: rgba(218, 165, 32, 0.08);
+    }
+
+    .locations-section h2 {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      background: linear-gradient(135deg, #DAA520 0%, #FFD700 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .locations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .location-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(218, 165, 32, 0.2);
+      border-radius: 15px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    body.light-theme .location-card {
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    .location-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 40px rgba(218, 165, 32, 0.2);
+    }
+
+    .location-card h3 {
+      font-size: 1.3rem;
+      color: #DAA520;
+      margin-bottom: 0.5rem;
+    }
+
+    .location-card p {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    body.light-theme .location-card p {
+      color: rgba(26, 26, 26, 0.7);
+    }
+
+    /* Tagline Section */
+    .tagline-section {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, rgba(218, 165, 32, 0.1) 0%, rgba(255, 215, 0, 0.1) 100%);
+      border-radius: 20px;
+      margin-bottom: 4rem;
+    }
+
+    .tagline-section h2 {
+      font-size: 2.5rem;
+      font-style: italic;
+      background: linear-gradient(135deg, #DAA520 0%, #FFD700 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+    }
+
+    .tagline-section p {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    body.light-theme .tagline-section p {
+      color: rgba(26, 26, 26, 0.7);
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(26, 26, 26, 0.8);
+      padding: 3rem 5%;
+      border-top: 2px solid #DAA520;
+      position: relative;
+      z-index: 1;
+    }
+
+    body.light-theme footer {
+      background: rgba(255, 255, 255, 0.8);
+      border-top: 2px solid #DAA520;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      background: linear-gradient(135deg, #DAA520 0%, #FFD700 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 2rem;
+      background: rgba(218, 165, 32, 0.1);
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    body.light-theme .contact-item {
+      color: #1a1a1a;
+    }
+
+    .contact-item:hover {
+      background: rgba(218, 165, 32, 0.2);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(218, 165, 32, 0.3);
+    }
+
+    .contact-icon {
+      font-size: 1.5rem;
+    }
+
+    .contact-item img {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+    }
+
+    .copyright {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(218, 165, 32, 0.2);
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9rem;
+    }
+
+    body.light-theme .copyright {
+      color: rgba(26, 26, 26, 0.6);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 968px) {
+      .logo-text {
+        font-size: 3.5rem;
+      }
+
+      nav {
+        gap: 1rem;
+        padding: 1rem 3%;
+      }
+
+      nav a {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+      }
+
+      .about-section h2 {
+        font-size: 2.2rem;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-links {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .logo-text {
+        font-size: 2.5rem;
+        letter-spacing: 4px;
+      }
+
+      .logo-tagline {
+        font-size: 1rem;
+      }
+
+      .hero-section {
+        height: 40vh;
+      }
+
+      nav a {
+        font-size: 0.85rem;
+      }
+
+      .about-section h2 {
+        font-size: 1.8rem;
+      }
+
+      .about-section p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Particles Background -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Theme Toggle Button -->
+  <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
+    🌓
+  </button>
+
+  <!-- Hero Section with Logo -->
+  <div class="hero-section">
+    <div class="logo-container">
+      <div class="logo-text">ARMANI</div>
+      <div class="logo-tagline">LUXURY CAR DEALERS</div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="#home">HOME</a>
+    <a href="Luxury cars.html">LUXURY SUV's</a>
+    <a href="Sport cars.html">SPORT CARS</a>
+    <a href="Classic cars.html">CLASSY CARS</a>
+    <a href="Electric cars.html">ELECTRIC CARS</a>
+    <a href="Sign IN.html">SIGN IN</a>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- About Section -->
+    <div class="about-section">
+      <h2>Welcome to Armani Car Dealers</h2>
+      <p>
+        Armani car dealers deals with a variety of cars such as Luxury SUVs, Electric cars, 
+        and even classy cars taking your vibe back to the 19<sup>th</sup> century. 
+        Experience the perfect blend of luxury, performance, and timeless elegance.
+      </p>
+    </div>
+
+    <!-- Features Grid -->
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🚙</div>
+        <h3>Luxury SUVs</h3>
+        <p>Experience ultimate comfort and power with our premium collection of luxury SUVs.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🏎️</div>
+        <h3>Sport Cars</h3>
+        <p>Feel the thrill of speed and precision with our high-performance sports cars.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🎩</div>
+        <h3>Classic Cars</h3>
+        <p>Travel back in time with our stunning collection of 19th-century classic automobiles.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Electric Cars</h3>
+        <p>Drive into the future with our eco-friendly, cutting-edge electric vehicles.</p>
+      </div>
+    </div>
+
+    <!-- Locations Section -->
+    <div class="locations-section">
+      <h2>Our Locations</h2>
+      <div class="locations-grid">
+        <div class="location-card">
+          <h3>📍 Main Branch</h3>
+          <p>Riara, Ngong Road</p>
+        </div>
+        <div class="location-card">
+          <h3>📍 Roysambu</h3>
+          <p>Thika Road Area</p>
+        </div>
+        <div class="location-card">
+          <h3>📍 Kileleshwa</h3>
+          <p>Westlands Area</p>
+        </div>
+        <div class="location-card">
+          <h3>📍 Runda</h3>
+          <p>Kiambu Road</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tagline Section -->
+    <div class="tagline-section">
+      <h2>"It's Not All About Cars..."</h2>
+      <p>At Armani, it's about your style and vibe. We match the perfect vehicle to your personality.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-title">Get In Touch</div>
+      
+      <div class="contact-links">
+        <a href="https://wa.me/254719238574" class="contact-item" target="_blank">
+          <span class="contact-icon">💬</span>
+          <span>WhatsApp: +254 719 238 574</span>
+        </a>
+
+        <a href="https://www.instagram.com/arm_ani" class="contact-item" target="_blank">
+          <span class="contact-icon">📸</span>
+          <span>Instagram: @Arm_ani</span>
+        </a>
+
+        <a href="https://www.facebook.com/armani" class="contact-item" target="_blank">
+          <span class="contact-icon">👥</span>
+          <span>Facebook: @Arm_ani</span>
+        </a>
+      </div>
+
+      <div class="copyright">
+        <p>© 2025 Armani Car Dealers. All Rights Reserved. | Luxury • Performance • Style</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Create animated background particles
+    const particlesContainer = document.getElementById('particles');
+    const particleCount = 40;
+
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      
+      const size = Math.random() * 5 + 2;
+      const posX = Math.random() * 100;
+      const posY = Math.random() * 100;
+      const delay = Math.random() * 15;
+      
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.left = `${posX}%`;
+      particle.style.top = `${posY}%`;
+      particle.style.animationDelay = `${delay}s`;
+      
+      particlesContainer.appendChild(particle);
+    }
+
+    // Theme Toggle Function
+    function toggleTheme() {
+      document.body.classList.toggle('light-theme');
+      
+      // Save theme preference
+      const isLight = document.body.classList.contains('light-theme');
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    }
+
+    // Load saved theme
+    window.addEventListener('load', () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+      }
+    });
+
+    // Smooth scroll for navigation
+    document.querySelectorAll('nav a').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href.startsWith('#')) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
